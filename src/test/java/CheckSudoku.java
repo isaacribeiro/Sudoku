@@ -82,72 +82,70 @@ public class CheckSudoku {
 
         Sudoku expSudoku = new Sudoku( expectedSudoku );
 
-        assertEquals(expSudoku, Sudoku.calculateSudoku(actSudoku));
+        assertEquals(expSudoku, actSudoku.calculateSudoku());
 
     }
 
-
-   /* TODO: create test for Block Extraction
-    @Test
+   /* @Test
     public void extractBlocks(){
 
 //      Input Structure
         Sudoku inputSudoku = new Sudoku( { 5, 3, 4, 6, 7, 8, 9, 1, 2},
-                                         { 6, 7, 2, 1, 9, 5, 3, 4, 8},
-                                         { 1, 9, 8, 3, 4, 2, 5, 6, 7},
-                                         { 8, 5, 9, 7, 6, 1, 4, 2, 3},
-                                         { 4, 2, 6, 8, 5, 3, 7, 9, 1},
-                                         { 7, 1, 3, 9, 2, 4, 8, 5, 6},
-                                         { 9, 6, 1, 5, 3, 7, 2, 8, 4},
-                                         { 2, 8, 7, 4, 1, 9, 6, 3, 5},
-                                         { 3, 4, 5, 2, 8, 6, 1, 7, 9} );
+                { 6, 7, 2, 1, 9, 5, 3, 4, 8},
+                { 1, 9, 8, 3, 4, 2, 5, 6, 7},
+                { 8, 5, 9, 7, 6, 1, 4, 2, 3},
+                { 4, 2, 6, 8, 5, 3, 7, 9, 1},
+                { 7, 1, 3, 9, 2, 4, 8, 5, 6},
+                { 9, 6, 1, 5, 3, 7, 2, 8, 4},
+                { 2, 8, 7, 4, 1, 9, 6, 3, 5},
+                { 3, 4, 5, 2, 8, 6, 1, 7, 9} );
 
-//      #1 Block
+        //      #1 Block
         Block expBlock_1 = new Block( { 5, 3, 4},
-                                      { 6, 5, 2},
-                                      { 1, 9, 8});
+                { 6, 5, 2},
+                { 1, 9, 8});
 
-//      #2 Block
+        //      #2 Block
         Block expBlock_2 = new Block( { 6, 7, 8},
-                                      { 1, 9, 5},
-                                      { 3, 4, 2});
+                { 1, 9, 5},
+                { 3, 4, 2});
 
-//      #3 Block
+        //      #3 Block
         Block expBlock_3 = new Block( { 9, 1, 2},
-                                      { 3, 4, 8},
-                                      { 5, 6, 7});
+                { 3, 4, 8},
+                { 5, 6, 7});
 
-//      #4 Block
+        //      #4 Block
         Block expBlock_4 = new Block( { 8, 5, 9},
-                                      { 4, 2, 6},
-                                      { 7, 1, 3});
+                { 4, 2, 6},
+                { 7, 1, 3});
 
-//      #5 Block
+        //      #5 Block
         Block expBlock_5 = new Block( { 7, 6, 1},
-                                      { 8, 5, 3},
-                                      { 9, 2, 4});
+                { 8, 5, 3},
+                { 9, 2, 4});
 
-//      #6 Block
+        //      #6 Block
         Block expBlock_6 = new Block( { 4, 2, 3},
-                                      { 7, 9, 1},
-                                      { 8, 5, 6});
+                { 7, 9, 1},
+                { 8, 5, 6});
 
-//      #7 Block
+        //      #7 Block
         Block expBlock_7 = new Block( { 9, 6, 1},
-                                      { 2, 8, 7},
-                                      { 3, 4, 5});
+                { 2, 8, 7},
+                { 3, 4, 5});
 
-//      #8 Block
+        //      #8 Block
         Block expBlock_8 = new Block( { 5, 3, 7},
-                                      { 4, 1, 9},
-                                      { 2, 8, 6});
+                { 4, 1, 9},
+                { 2, 8, 6});
 
-//      #9 Block
+        //      #9 Block
         Block expBlock_9 = new Block( { 2, 8, 4},
-                                      { 6, 3, 5},
-                                      { 1, 7, 9});
+                { 6, 3, 5},
+                { 1, 7, 9});
 
-//      Sudoky2Block
+        //      Sudoky2Block
         assertEquals(expBlock_1, Sudoku.getBlock(1));
         assertEquals(expBlock_2, Sudoku.getBlock(2));
         assertEquals(expBlock_3, Sudoku.getBlock(3));
