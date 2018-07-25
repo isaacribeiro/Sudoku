@@ -237,4 +237,23 @@ public class Sudoku{
 
         return sortedMap;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        Sudoku sudoku = (Sudoku) obj;
+        boolean result = true;
+
+        for (int i = 0; i < elements.length; i++){
+            for (int j = 0; j < elements[i].length; j++) {
+                if (elements[i][j] != sudoku.getElements()[i][j])
+                    result = false;
+            }
+        }
+        return result;
+    }
+
+    public int[][] getElements(){
+        return elements;
+    }
 }
