@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 public class CheckSudoku {
 
     @Test
-    public void validSingleRowOrColumn(){
+    public void validSingleRowOrColumn() {
 
 //      Input structure
         int[] actRecord = {5, 3, 4, 6, 7, 8, 9, 1, 2};
@@ -17,7 +17,7 @@ public class CheckSudoku {
     }
 
     @Test
-    public void invalidSingleRowOrColumn(){
+    public void invalidSingleRowOrColumn() {
 
 //      Input structure
         int[] actRecord = {5, 3, 4, 5, 7, 8, 9, 1, 2};
@@ -27,122 +27,122 @@ public class CheckSudoku {
     }
 
     @Test
-    public void validSingleBlock(){
+    public void validSingleBlock() {
 
 //      Input Block
         int[][] block = {{5, 3, 4},
-                         {6, 7, 2},
-                         {1, 9, 8}};
+                {6, 7, 2},
+                {1, 9, 8}};
 
         assertTrue(Sudoku.checkSingleBlock(block));
 
     }
 
     @Test
-    public void invalidSingleBlock(){
+    public void invalidSingleBlock() {
 
 //      Input Block
         int[][] block = {{5, 3, 4},
-                         {6, 5, 2},
-                         {1, 9, 8}};
+                {6, 5, 2},
+                {1, 9, 8}};
 
         assertFalse(Sudoku.checkSingleBlock(block));
 
     }
 
     @Test
-    public void checkCalculatedSudoku(){
+    public void checkCalculatedSudoku() {
 
 //      Input Object
-        int[][] actualSudoku = {  { 5, 3, 0, 0, 7, 0, 0, 0, 0},
-                                  { 6, 0, 0, 1, 9, 5, 0, 0, 0},
-                                  { 0, 9, 8, 0, 0, 0, 0, 6, 0},
-                                  { 8, 0, 0, 0, 6, 0, 0, 0, 3},
-                                  { 4, 0, 0, 8, 0, 3, 0, 0, 1},
-                                  { 7, 0, 0, 0, 2, 0, 0, 0, 6},
-                                  { 0, 6, 0, 0, 0, 0, 2, 8, 0},
-                                  { 0, 0, 0, 4, 1, 9, 0, 0, 5},
-                                  { 0, 0, 0, 0, 8, 0, 0, 7, 9}  };
+        int[][] actualSudoku = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
+                                {6, 0, 0, 1, 9, 5, 0, 0, 0},
+                                {0, 9, 8, 0, 0, 0, 0, 6, 0},
+                                {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                                {4, 0, 0, 8, 0, 3, 0, 0, 1},
+                                {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                                {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                                {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                                {0, 0, 0, 0, 8, 0, 0, 7, 9}};
 
-        Sudoku actSudoku = new Sudoku( actualSudoku );
+        Sudoku actSudoku = new Sudoku(actualSudoku);
 
 //      Expected Object
-        int[][] expectedSudoku = {  { 5, 3, 4, 6, 7, 8, 9, 1, 2},
-                                    { 6, 7, 2, 1, 9, 5, 3, 4, 8},
-                                    { 1, 9, 8, 3, 4, 2, 5, 6, 7},
-                                    { 8, 5, 9, 7, 6, 1, 4, 2, 3},
-                                    { 4, 2, 6, 8, 5, 3, 7, 9, 1},
-                                    { 7, 1, 3, 9, 2, 4, 8, 5, 6},
-                                    { 9, 6, 1, 5, 3, 7, 2, 8, 4},
-                                    { 2, 8, 7, 4, 1, 9, 6, 3, 5},
-                                    { 3, 4, 5, 2, 8, 6, 1, 7, 9}  };
+        int[][] expectedSudoku = {  {5, 3, 4, 6, 7, 8, 9, 1, 2},
+                                    {6, 7, 2, 1, 9, 5, 3, 4, 8},
+                                    {1, 9, 8, 3, 4, 2, 5, 6, 7},
+                                    {8, 5, 9, 7, 6, 1, 4, 2, 3},
+                                    {4, 2, 6, 8, 5, 3, 7, 9, 1},
+                                    {7, 1, 3, 9, 2, 4, 8, 5, 6},
+                                    {9, 6, 1, 5, 3, 7, 2, 8, 4},
+                                    {2, 8, 7, 4, 1, 9, 6, 3, 5},
+                                    {3, 4, 5, 2, 8, 6, 1, 7, 9} };
 
-        Sudoku expSudoku = new Sudoku( expectedSudoku );
+        Sudoku expSudoku = new Sudoku(expectedSudoku);
 
         assertThat(actSudoku.calculateSudoku(), is(expSudoku));
 
     }
 
     @Test
-    public void extractBlocks(){
+    public void extractBlocks() {
 
 //      Input Structure
-        int[][] input = {{ 5, 3, 4, 6, 7, 8, 9, 1, 2},
-                         { 6, 7, 2, 1, 9, 5, 3, 4, 8},
-                         { 1, 9, 8, 3, 4, 2, 5, 6, 7},
-                         { 8, 5, 9, 7, 6, 1, 4, 2, 3},
-                         { 4, 2, 6, 8, 5, 3, 7, 9, 1},
-                         { 7, 1, 3, 9, 2, 4, 8, 5, 6},
-                         { 9, 6, 1, 5, 3, 7, 2, 8, 4},
-                         { 2, 8, 7, 4, 1, 9, 6, 3, 5},
-                         { 3, 4, 5, 2, 8, 6, 1, 7, 9}};
+        int[][] input = {{5, 3, 4, 6, 7, 8, 9, 1, 2},
+                         {6, 7, 2, 1, 9, 5, 3, 4, 8},
+                         {1, 9, 8, 3, 4, 2, 5, 6, 7},
+                         {8, 5, 9, 7, 6, 1, 4, 2, 3},
+                         {4, 2, 6, 8, 5, 3, 7, 9, 1},
+                         {7, 1, 3, 9, 2, 4, 8, 5, 6},
+                         {9, 6, 1, 5, 3, 7, 2, 8, 4},
+                         {2, 8, 7, 4, 1, 9, 6, 3, 5},
+                         {3, 4, 5, 2, 8, 6, 1, 7, 9}};
 
-        Sudoku sudoku = new Sudoku( input );
+        Sudoku sudoku = new Sudoku(input);
 
         //      #1 Block
-        int[][] expBlock_0 = {{ 5, 3, 4},
-                              { 6, 7, 2},
-                              { 1, 9, 8}};
+        int[][] expBlock_0 = {{5, 3, 4},
+                {6, 7, 2},
+                {1, 9, 8}};
 
         //      #2 Block
-        int[][] expBlock_1 = {{ 6, 7, 8},
-                              { 1, 9, 5},
-                              { 3, 4, 2}};
+        int[][] expBlock_1 = {{6, 7, 8},
+                {1, 9, 5},
+                {3, 4, 2}};
 
         //      #3 Block
-        int[][] expBlock_2 = {{ 9, 1, 2},
-                              { 3, 4, 8},
-                              { 5, 6, 7}};
+        int[][] expBlock_2 = {{9, 1, 2},
+                {3, 4, 8},
+                {5, 6, 7}};
 
         //      #4 Block
-        int[][] expBlock_3 = {{ 8, 5, 9},
-                              { 4, 2, 6},
-                              { 7, 1, 3}};
+        int[][] expBlock_3 = {{8, 5, 9},
+                {4, 2, 6},
+                {7, 1, 3}};
 
         //      #5 Block
-        int[][] expBlock_4 = {{ 7, 6, 1},
-                              { 8, 5, 3},
-                              { 9, 2, 4}};
+        int[][] expBlock_4 = {{7, 6, 1},
+                {8, 5, 3},
+                {9, 2, 4}};
 
         //      #6 Block
-        int[][] expBlock_5 = {{ 4, 2, 3},
-                              { 7, 9, 1},
-                              { 8, 5, 6}};
+        int[][] expBlock_5 = {{4, 2, 3},
+                {7, 9, 1},
+                {8, 5, 6}};
 
         //      #7 Block
-        int[][] expBlock_6 = {{ 9, 6, 1},
-                              { 2, 8, 7},
-                              { 3, 4, 5}};
+        int[][] expBlock_6 = {{9, 6, 1},
+                {2, 8, 7},
+                {3, 4, 5}};
 
         //      #8 Block
-        int[][] expBlock_7 = {{ 5, 3, 7},
-                              { 4, 1, 9},
-                              { 2, 8, 6}};
+        int[][] expBlock_7 = {{5, 3, 7},
+                {4, 1, 9},
+                {2, 8, 6}};
 
         //      #9 Block
-        int[][] expBlock_8 = {{ 2, 8, 4},
-                              { 6, 3, 5},
-                              { 1, 7, 9}};
+        int[][] expBlock_8 = {{2, 8, 4},
+                {6, 3, 5},
+                {1, 7, 9}};
 
         //      Sudoky2Block
         assertThat(sudoku.getBlock(0), is(expBlock_0));
@@ -156,4 +156,47 @@ public class CheckSudoku {
         assertThat(sudoku.getBlock(8), is(expBlock_8));
 
     }
+
+//    @Test
+//    public void missingValuesInACompleteSudoku() {
+//
+//        //      Input Object
+//        int[][] actualSudoku = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
+//                                {6, 0, 0, 1, 9, 5, 0, 0, 0},
+//                                {0, 9, 8, 0, 0, 0, 0, 6, 0},
+//                                {8, 0, 0, 0, 6, 0, 0, 0, 3},
+//                                {4, 0, 0, 8, 0, 3, 0, 0, 1},
+//                                {7, 0, 0, 0, 2, 0, 0, 0, 6},
+//                                {0, 6, 0, 0, 0, 0, 2, 8, 0},
+//                                {0, 0, 0, 4, 1, 9, 0, 0, 5},
+//                                {0, 0, 0, 0, 8, 0, 0, 7, 9}};
+//
+//        Sudoku actSudoku = new Sudoku(actualSudoku);
+//
+//        assertThat(actSudoku.getMissingSlots().size(), is(51));
+//
+//    }
+//
+//    @Test
+//    public void bestPlayWithConcurrence() {
+//
+//        //      Input Object
+//        int[][] actualSudoku = {{5, 3, 4, 6, 7, 8, 9, 1, 2},
+//                                {6, 7, 2, 1, 9, 5, 3, 4, 8},
+//                                {1, 9, 8, 3, 4, 2, 5, 6, 7},
+//                                {8, 5, 9, 7, 6, 1, 4, 2, 3},
+//                                {4, 2, 6, 8, 0, 3, 7, 9, 1},
+//                                {7, 1, 3, 9, 2, 4, 8, 5, 6},
+//                                {9, 6, 1, 5, 3, 7, 2, 0, 4},
+//                                {2, 8, 7, 4, 1, 9, 6, 0, 5},
+//                                {3, 4, 5, 2, 8, 6, 1, 7, 9}};
+//
+//        Sudoku actSudoku = new Sudoku(actualSudoku);
+//
+////      Expected Result
+//        int[] expBestPlayPosition = {4, 4};
+//
+//        assertThat(actSudoku.findBestPositionToPlay(), is(expBestPlayPosition));
+//
+//    }
 }
