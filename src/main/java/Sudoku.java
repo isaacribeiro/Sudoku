@@ -1,7 +1,8 @@
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
-public class Sudoku {
+public class Sudoku{
 
     private int[][] elements = new int[9][9];
 
@@ -11,9 +12,7 @@ public class Sudoku {
 
 //  Receives a incomplete Sudoku and tries to solve it
     public Sudoku calculateSudoku(){
-
-        int[] nextPositionToPlay = findBestPositionToPlay();
-        return null;
+        return solveSudoku();
     }
 
 //  Check if there is no repeated values for a specific set
@@ -71,7 +70,7 @@ public class Sudoku {
 //  Find the best position to fill a value
 //  By "Best Position", I mean the one whose surrounding values brings a higher expectation of
 //  success. Then, it returns an array with the x, y coordinates to play
-    private int[] findBestPositionToPlay(){
+    private Sudoku solveSudoku(){
 
 //      Looks for missing slots. The ones equal to '0'
         List<Integer[]> openPositions = getMissingSlots();
@@ -90,9 +89,18 @@ public class Sudoku {
         }
 
 //      Sort gameMap by the size of Integer[] ASCENDINGLY
-        Map<Integer, Integer[]> sortedGameMap = sortByValueSize((HashMap<Integer, Integer[]>) gameMap);
+        Map<Integer, Integer> sortedGameMap = sortByValueSize((HashMap<Integer, Integer[]>) gameMap);
 
-        return null;
+        for(Map.Entry<Integer,Integer> sortedMap : sortedGameMap.entrySet())
+            if (sortedMap.getValue() == 1) { //When there is only one option
+                Integer[] correctValue = gameMap.get(sortedMap.getKey());
+                Integer[] position = openPositions.get(sortedMap.getKey());
+                elements[position[0]][position[1]] = correctValue[0];
+            } else {
+                solveSudoku();
+            }
+
+        return new Sudoku(elements);
     }
 
 //  Creates a List with the coordinates for the slots with null values
@@ -193,7 +201,40 @@ public class Sudoku {
     }
 
     //Sorts HashMap by Value
-    private static Map<Integer, Integer[]> sortByValueSize(HashMap<Integer, Integer[]> map) {
+    private static Map<Integer, Integer> sortByValueSize(HashMap<Integer, Integer[]> map) {
 
+        Map<Integer,Integer> unsortedMap = new HashMap<>();
+
+        for(Map.Entry<Integer, Integer[]> entry : map.entrySet()){
+            unsortedMap.put(entry.getKey(), entry.getValue().length);
+
+        }
+
+        Map<Integer, Integer> sortedMap = sortByValue(unsortedMap);
+        return sortedMap;
+    }
+
+    private static Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap) {
+
+        // 1. Convert Map to List of Map
+        List<Map.Entry<Integer, Integer>> list =
+                new LinkedList<Map.Entry<Integer, Integer>>(unsortMap.entrySet());
+
+        // 2. Sort list with Collections.sort(), provide a custom Comparator
+        //    Try switch the o1 o2 position for a different order
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            public int compare(Map.Entry<Integer, Integer> o1,
+                               Map.Entry<Integer, Integer> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
+        Map<Integer, Integer> sortedMap = new LinkedHashMap<Integer, Integer>();
+        for (Map.Entry<Integer, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 }
