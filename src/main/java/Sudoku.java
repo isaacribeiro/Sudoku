@@ -4,9 +4,9 @@ import java.util.stream.Collectors;
 
 public class Sudoku{
 
-    private int[][] elements = new int[9][9];
+    private Integer[][] elements = new Integer[9][9];
 
-    public Sudoku( int[][] elements){
+    public Sudoku( Integer[][] elements){
         this.elements = elements;
     }
 
@@ -16,11 +16,10 @@ public class Sudoku{
     }
 
 //  Check if there is no repeated values for a specific set
-    private static boolean hasNonRepeatedValues(int[] entries){
+    private static boolean hasNonRepeatedValues(Integer[] entries){
 
 //      Boxed list for Wrapper's Auxiliary Methods Support
         Integer[] boxedList = Arrays.stream( entries )
-                .boxed()
                 .toArray(Integer[]::new);
 
         List<Integer> aList = Arrays.asList(boxedList);
@@ -37,7 +36,7 @@ public class Sudoku{
     }
 
 //  Serializes an multidimensional Array
-    private static int[] serializesMultimensionalArray(int[][] input){
+    private static Integer[] serializesMultimensionalArray(Integer[][] input){
 
 //      Generic Model for Multidimensional Array Serialization Process
 //      int[] to Integer[] -> Boxing Process
@@ -51,7 +50,6 @@ public class Sudoku{
 
 //          Cast the int[] row for a Boxed format
             boxedList = Arrays.stream(input[aRow])
-                    .boxed()
                     .toArray(Integer[]::new);
             aList.addAll(Arrays.asList(boxedList));
 
@@ -59,12 +57,7 @@ public class Sudoku{
 
 //      Auxiliary swapping process.
 //      Before casting into an int[], creates an Integer[]
-        Integer[] aReturn = aList.toArray(new Integer[aList.size()]);
-
-//      Cast to primitive int[] type
-        return Arrays.stream(aReturn)
-                .mapToInt(Integer::intValue)
-                .toArray();
+        return aList.toArray(new Integer[aList.size()]);
     }
 
 //  Find the best position to fill a value
@@ -82,7 +75,8 @@ public class Sudoku{
 //      In other words, searches for the slot surrounded by non-initial values
 //      1) Rows
 //      2) Columns
-//      3) Group
+////      3) Group
+//        for(Integer[] openPosition : openPositions){
         for(int i = 0; i < openPositions.size(); i++){
             Integer[] openPosition = openPositions.get(i);
             gameMap.put(i, getPossibleValues(openPosition));
@@ -128,9 +122,9 @@ public class Sudoku{
         Integer[] initialSet = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         possibleValues.addAll(Arrays.asList(initialSet));
 
-        int[] row = getRow(coordinates[0]);
-        int[] column = getColumn(coordinates[1]);
-        int[] block = serializesMultimensionalArray(getBlock(getBlockId(coordinates)));
+        Integer[] row = getRow(coordinates[0]);
+        Integer[] column = getColumn(coordinates[1]);
+        Integer[] block = serializesMultimensionalArray(getBlock(getBlockId(coordinates)));
 
         Arrays.stream(row)
                 .forEach(possibleValues::remove);
@@ -144,7 +138,7 @@ public class Sudoku{
         return possibleValues.toArray(new Integer[possibleValues.size()]);
     }
 
-    private int getBlockId(Integer[] coordinates){
+    private Integer getBlockId(Integer[] coordinates){
 
         int y = coordinates[0];
         int x = coordinates[1];
@@ -156,21 +150,21 @@ public class Sudoku{
     }
 
     //  Returns the specified column from elements multidimensional vector
-    private int[] getColumn(int index){
+    private Integer[] getColumn(int index){
 
-        int[] column = new int[9];
+        ArrayList<Integer> column = new ArrayList<>();
 
-        for(int aRow = 0; aRow < elements.length; aRow++){
-            column[aRow] = elements[aRow][index];
+        for(Integer[] aRow : elements){
+            column.add(aRow[index]);
         }
 
-        return column;
+        return (Integer[]) column.toArray(new Integer[column.size()]);
     }
 
-    //  Returns the specified column from elements multidimensional vector
-    private int[] getRow(int index){
+    //  Returns the specified column from multidimensional vector
+    private Integer[] getRow(int index){
 
-        int[] row = elements[index];
+        Integer[] row = elements[index];
         return row;
     }
 
@@ -178,9 +172,9 @@ public class Sudoku{
 //  0 | 1 | 2
 //  3 | 4 | 5
 //  6 | 7 | 8
-    public int[][] getBlock(int block){
+    public Integer[][] getBlock(int block){
 
-        int[][] result = new int[3][3];
+        Integer[][] result = new Integer[3][3];
 
         for(int i = 0; i < result.length; i++){
             for(int j = 0; j < result[i].length; j++){
@@ -191,12 +185,12 @@ public class Sudoku{
     }
 
     //  Check if a single record fits the base Sudoku condition of having no zeros, repeated values or numbers out of 1..9 interval
-    public static boolean checkSingleRecord(int[] record){
+    public static boolean checkSingleRecord(Integer[] record){
         return hasNonRepeatedValues(record);
     }
 
     //  Check if a single block fits the base Sudoku condition of having no zeros, repeated values or number out of 1..9 interval
-    public static boolean checkSingleBlock(int[][] block){
+    public static boolean checkSingleBlock(Integer[][] block){
         return hasNonRepeatedValues(serializesMultimensionalArray(block));
     }
 
@@ -223,9 +217,9 @@ public class Sudoku{
         // 2. Sort list with Collections.sort(), provide a custom Comparator
         //    Try switch the o1 o2 position for a different order
         Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
-            public int compare(Map.Entry<Integer, Integer> o1,
-                               Map.Entry<Integer, Integer> o2) {
-                return (o1.getValue()).compareTo(o2.getValue());
+            public int compare(Map.Entry<Integer, Integer> p1,
+                               Map.Entry<Integer, Integer> p2) {
+                return (Integer.compare(p1.getValue(),p2.getValue()));
             }
         });
 
@@ -253,7 +247,7 @@ public class Sudoku{
         return result;
     }
 
-    public int[][] getElements(){
+    public Integer[][] getElements(){
         return elements;
     }
 }
